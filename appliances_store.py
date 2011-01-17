@@ -6,13 +6,11 @@ class Customer():
 
 class Product():
 
-    def __init__(self, my_id, date_of_purchase, mark, model, serial_number, customer):
+    def __init__(self, my_id, mark, model, serial_number):
         self.warranty = {
                          'id':my_id,
-                         'date_of_purchase':date_of_purchase,
                          'mark':mark,
                          'model':model,
                          'serial_number':serial_number,
-                         'initial_customer':customer,
                          }
 
