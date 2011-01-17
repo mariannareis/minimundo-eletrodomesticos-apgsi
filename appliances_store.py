@@ -14,3 +14,10 @@ class Product():
                          'serial_number':serial_number,
                          }
 
+class Purchase():
+
+    def __init__(self, my_id, customer, date):
+        self.id = my_id
+        self.customer = customer
+        self.date = date
+

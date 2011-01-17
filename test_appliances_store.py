@@ -2,14 +2,7 @@ from should_dsl import should, should_not
 import unittest
 import specloud
 
-from appliances_store import Product, Customer
-
-class TestPurchase(unittest.TestCase):
-    pass
-
-#"17/01/2011",
-#product.warranty['date_of_purchase'] |should| equal_to ("17/01/2011")
-#product.warranty['initial_customer'] |should| equal_to (1)
+from appliances_store import Product, Customer, Purchase
 
 class TestProduct(unittest.TestCase):
 
@@ -26,4 +19,11 @@ class TestCustomer(unittest.TestCase):
         customer.id |should| equal_to (1)
         customer.name |should| equal_to ("Paula")
         customer.address |should| equal_to ("Casa Da Paula")
+
+class TestPurchase(unittest.TestCase):
+    def test_making_a_purchase(self):
+        purchase = Purchase(1, 1, "17/01/2011") #id, customer, date_of_purchase
+        purchase.id |should| equal_to (1)
+        purchase.customer |should| equal_to(1)
+        purchase.date |should| equal_to ("17/01/2011")
 
