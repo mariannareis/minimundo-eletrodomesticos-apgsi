@@ -7,3 +7,9 @@ class Product():
                          'serial_number':'123456',
                          }
 
+class Customer():
+    def __init__(self, my_id, name, address):
+        self.id = my_id
+        self.name = name
+        self.address = address
+
