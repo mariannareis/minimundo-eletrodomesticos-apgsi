@@ -5,6 +5,14 @@ class Customer():
         self.id = my_id
         self.name = name
         self.address = address
+        StorageCustomers(self)
+
+class StorageCustomers():
+
+    all_customers = []
+
+    def __init__(self, customer):
+        self.all_customers.append(customer)
 
 class Product():
 
@@ -13,29 +21,38 @@ class Product():
         self.mark = mark
         self.model = model
         self.serial_number = serial_number
-#        self.warranty = {
-#                         'id':my_id,
-#                         'mark':mark,
-#                         'model':model,
-#                         'serial_number':serial_number,
-#                         }
+        StorageProducts(self)
+
+class StorageProducts():
+
+    all_products = []
+
+    def __init__(self, product):
+        self.all_products.append(product)
 
 class Purchase():
 
-    def __init__(self, my_id, customer, date):
+    def __init__(self, my_id, customer, unformatted_date):
         self.id = my_id
         self.customer = customer
-        self.date = date
+        self.date = date(int(unformatted_date[6:10]),int(unformatted_date[3:5]), int(unformatted_date[0:2]))
         self.products = []
 
     def add_product(self, product):
         self.products.append(product)
 
     def is_my_purchase_in_the_warranty(self, purchase_id):
-        warranty_year = date.today().year - 1
-        warranty_date = date(warranty_year, date.today().month, date.today().day)
-        if date(2010, 1, 17) <= warranty_date:
+        warranty_year = self.date.year + 1
+        warranty_date = date(warranty_year, self.date.month, self.date.day)
+        if date.today() <= warranty_date:
             return True
         else:
             return False
+
+class Exchange():
+
+    def __init__(self, my_id, customer, product_exchanged):
+        self.id = my_id
+        self.customer = customer
+        self.product_exchanged = product_exchanged
 
