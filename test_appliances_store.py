@@ -68,3 +68,15 @@ class TestPurchase(unittest.TestCase):
         self.exchange = Exchange(1, 1, 1) #id, customer, product_exchanged
         self.exchange.make_an_exchange(self.purchase) |should| equal_to(True)
 
+    def test_make_an_exchange(self):
+        self.purchase = Purchase(1, 1, "17/01/2005") #id, customer, date_of_purchase
+        self.purchase.id |should| equal_to (1)
+        self.purchase.customer |should| equal_to(1)
+        self.purchase.date |should| equal_to (date(2005, 1, 17))
+        self.purchase.add_product(1)
+        self.purchase.add_product(1)
+        self.purchase.products |should| equal_to([1, 1])
+        #self.purchase.is_my_purchase_in_the_warranty(1) |should| equal_to(True)
+        self.exchange = Exchange(1, 1, 1) #id, customer, product_exchanged
+        self.exchange.make_an_exchange(self.purchase) |should| equal_to(False)
+
