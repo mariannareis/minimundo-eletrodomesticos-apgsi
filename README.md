@@ -1,6 +1,6 @@
 #Objetivo do repositório:
 
-- Desenvolver o seguinte Mini-Mundo:
+Desenvolver o seguinte Mini-Mundo:
 
 Uma loja de venda de Eletrodomésticos quer automatizar o seu controle de compra e troca de aparelhos por parte de seus clientes.
 
