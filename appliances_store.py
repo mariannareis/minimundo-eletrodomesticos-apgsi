@@ -1,34 +1,33 @@
 from datetime import date
 
 class Customer():
-    def __init__(self, my_id, name, address):
-        self.id = my_id
-        self.name = name
-        self.address = address
-        StorageCustomers(self)
-
-class StorageCustomers():
 
     all_customers = []
 
-    def __init__(self, customer):
-        self.all_customers.append(customer)
+    def __init__(self, id, name, address):
+        self.id = id
+        self.name = name
+        self.address = address
+        self.storageCustomers(self)
+
+    @staticmethod
+    def storageCustomers(self):
+        self.all_customers.append(self)
 
 class Product():
 
-    def __init__(self, my_id, mark, model, serial_number):
-        self.id = my_id
+    all_products = []
+
+    def __init__(self, id, mark, model, serial_number):
+        self.id = id
         self.mark = mark
         self.model = model
         self.serial_number = serial_number
-        StorageProducts(self)
+        self.storageProducts(self)
 
-class StorageProducts():
-
-    all_products = []
-
-    def __init__(self, product):
-        self.all_products.append(product)
+    @staticmethod
+    def storageProducts(self):
+        self.all_products.append(self)
 
 class Purchase():
 
@@ -41,7 +40,7 @@ class Purchase():
     def add_product(self, product):
         self.products.append(product)
 
-    def is_my_purchase_in_the_warranty(self, purchase_id):
+    def is_my_purchase_in_the_warranty(self):
         warranty_year = self.date.year + 1
         warranty_date = date(warranty_year, self.date.month, self.date.day)
         if date.today() <= warranty_date:
@@ -55,4 +54,7 @@ class Exchange():
         self.id = my_id
         self.customer = customer
         self.product_exchanged = product_exchanged
+
+    def make_an_exchange(self, purchase):
+        return purchase.is_my_purchase_in_the_warranty()
 
