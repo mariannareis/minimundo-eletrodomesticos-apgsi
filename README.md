@@ -15,8 +15,10 @@ Qualquer cliente pode realizar uma troca, mesmo que não tenha sido o comprador.
 [parei faltando daqui pra baixo ainda!]
 
 Os aparelhos defeituosos são devolvidos para a fábrica e não mais retornam para a loja. A loja quer saber:
+defeito apresentado
+falta: colocar quantidade no estoque sempre q criar produto para ter as relações;
 
 a) Relação de aparelhos disponíveis na loja
-b) Relação de aparelhos que apresentaram defeitos contendo quem realizou a troca, a data e o defeito apresentado
+b) Relação de aparelhos que apresentaram defeitos contendo quem realizou a troca, a data e o (acrescentar campo defeito apresentado) defeito apresentado
 c) Relação de clientes cujas compras nunca apresentaram defeito
 

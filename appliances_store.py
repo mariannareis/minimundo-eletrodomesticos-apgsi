@@ -29,6 +29,13 @@ class Product():
     def storageProducts(self):
         self.all_products.append(self)
 
+class Stock():
+
+    def __init__(self, id, product, quantity):
+        self.id = id
+        self.product = product
+        self.quantity = quantity
+
 class Purchase():
 
     def __init__(self, my_id, customer, unformatted_date):

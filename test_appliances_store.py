@@ -3,7 +3,7 @@ import unittest
 import specloud
 from datetime import date
 
-from appliances_store import Product, Customer, Purchase, Exchange
+from appliances_store import Product, Customer, Purchase, Exchange, Stock
 
 #EH PRECISO CONTABILIZAR E MOVIMENTAR OS PRODUTOS NO ESTOQUE!
 
@@ -25,6 +25,13 @@ class TestCustomer(unittest.TestCase):
         self.customer.name |should| equal_to ("Paula")
         self.customer.address |should| equal_to ("Casa Da Paula")
         len(self.customer.all_customers) |should| equal_to (1)
+
+class TestStock(unittest.TestCase):
+    def test_make_a_stock(self):
+        self.stock = Stock(1, 1, 10) #id, product, quantity
+        self.stock.id |should| equal_to (1)
+        self.stock.product |should| equal_to (1)
+        self.stock.quantity |should| equal_to (10)
 
 class TestPurchase(unittest.TestCase):
     def test_make_a_purchase(self):                                                 #faz uma venda
@@ -68,7 +75,7 @@ class TestPurchase(unittest.TestCase):
         self.exchange = Exchange(1, 1, 1) #id, customer, product_exchanged
         self.exchange.make_an_exchange(self.purchase) |should| equal_to(True)
 
-    def test_make_an_exchange(self):
+    def test_make_an_exchange(self):                                                     #faz troca
         self.purchase = Purchase(1, 1, "17/01/2005") #id, customer, date_of_purchase
         self.purchase.id |should| equal_to (1)
         self.purchase.customer |should| equal_to(1)

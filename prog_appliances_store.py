@@ -2,7 +2,7 @@ from datetime import date
 from appliances_store import *
 
 option = 0
-produtos = []
+#produtos = []
 
 while option != 7:
     print "Escolha o que deseja fazer: "
