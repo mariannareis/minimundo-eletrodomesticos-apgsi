@@ -31,16 +31,30 @@ class Product():
 
 class Stock():
 
+    all_stocks = []
+
     def __init__(self, id, product, quantity):
         self.id = id
         self.product = product
         self.quantity = quantity
+        self.storageStocks(self)
 
-    def add_product(self, product):
-        self.products.append(product)
+    def add_product_in_stock(self, product):
+        self.stocks.append(product)
 
    # def remove_product(self, product):
       #  self.product.
+
+    #def is_my_product_in_the_stock(self):
+    #    product_stock =
+    #    if product_stock > 0:
+    #        return True
+    #    else:
+    #        return False
+
+    @staticmethod
+    def storageStocks(self):
+        self.all_stocks.append(self)
 
 class Purchase():
 
