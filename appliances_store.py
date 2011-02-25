@@ -36,6 +36,12 @@ class Stock():
         self.product = product
         self.quantity = quantity
 
+    def add_product(self, product):
+        self.products.append(product)
+
+   # def remove_product(self, product):
+      #  self.product.
+
 class Purchase():
 
     def __init__(self, my_id, customer, unformatted_date):
@@ -57,11 +63,14 @@ class Purchase():
 
 class Exchange():
 
-    def __init__(self, my_id, customer, product_exchanged):
+    def __init__(self, my_id, customer, product_exchanged, problem):
         self.id = my_id
         self.customer = customer
         self.product_exchanged = product_exchanged
+        self.problem = problem
 
     def make_an_exchange(self, purchase):
         return purchase.is_my_purchase_in_the_warranty()
+       # if purchase.is_my_purchase_in_the_warranty() is True:
+        #    self
 
