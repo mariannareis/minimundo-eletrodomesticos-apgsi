@@ -14,8 +14,8 @@ class TestStorage(unittest.TestCase):
         self.storage.model |should| equal_to ("MD-001")
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
         len(self.storage.products_serials) |should| equal_to (3)
-        self.storage.all_kinds_of_products[0].products_serials |should| equal_to (['SD-2233', 'SD-4444', 'SD-5566'])
-        self.storage.all_kinds_of_products[0].mark |should| equal_to ('Arno')
+        self.storage.products_by_type[0].products_serials |should| equal_to (['SD-2233', 'SD-4444', 'SD-5566'])
+        self.storage.products_by_type[0].mark |should| equal_to ('Arno')
 
 class TestCustomer(unittest.TestCase):
 

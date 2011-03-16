@@ -16,7 +16,7 @@ class Customer():
 
 class Storage():
 
-    all_kinds_of_products = []
+    products_by_type = []         #type are the same mark and model!!!
     products_serials = []
 
     def add_products(self, mark, model, quantity):
@@ -32,7 +32,7 @@ class Storage():
 
     @staticmethod
     def storage_products(self):
-        self.all_kinds_of_products.append(self)
+        self.products_by_type.append(self)
 
 class Purchase():
 
