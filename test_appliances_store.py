@@ -3,19 +3,18 @@ import unittest
 import specloud
 from datetime import date
 
-from appliances_store import Product, Customer, Purchase, Exchange, Stock
-
-#EH PRECISO CONTABILIZAR E MOVIMENTAR OS PRODUTOS NO ESTOQUE!
+from appliances_store import Storage, Customer, Purchase, Exchange#, Product#, Stock
 
 class TestProduct(unittest.TestCase):
 
-    def test_add_one_product(self):                                                 #adiciona um produto
-        self.product = Product( "Arno", "MD-001", 4)
-        self.product.mark |should| equal_to ("Arno")
-        self.product.model |should| equal_to ("MD-001")
-        self.product.quantity |should| equal_to (4)
-        #self.product.serial_number |should| equal_to ("SN-3122")
-        #self.product.all_products[0].serial_number |should| equal_to ("SN-3122")
+    product = 0
+    def test_add_products(self):                                                 #adiciona um produto
+        self.storage = Storage()
+        self.storage.add_products("Arno", "MD-001", 3)
+        self.storage.mark |should| equal_to ("Arno")
+        self.storage.model |should| equal_to ("MD-001")
+        self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
+        len(self.storage.products_serials) |should| equal_to (3)
 
 class TestCustomer(unittest.TestCase):
 
@@ -77,7 +76,6 @@ class TestPurchase(unittest.TestCase):
         self.purchase.add_product(1)
         self.purchase.add_product(1)
         self.purchase.products |should| equal_to([1, 1])
-        #self.purchase.is_my_purchase_in_the_warranty(1) |should| equal_to(True)
         self.exchange = Exchange(1, 1, 1, "Produto nao liga") #id, customer, product_exchanged, problem_of_productself.exchange = Exchange(1, 1, 1, "Produto nao liga") #id, customer, product_exchanged, problem_of_product
         self.exchange.problem |should| equal_to ("Produto nao liga")
         self.exchange.make_an_exchange(self.purchase) |should| equal_to(False)
