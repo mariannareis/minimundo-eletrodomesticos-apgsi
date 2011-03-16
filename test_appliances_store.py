@@ -10,13 +10,12 @@ from appliances_store import Product, Customer, Purchase, Exchange, Stock
 class TestProduct(unittest.TestCase):
 
     def test_add_one_product(self):                                                 #adiciona um produto
-        self.product = Product(1, "Arno", "MD-001", "SN-3122")
-        self.product.id |should| equal_to (1)
+        self.product = Product( "Arno", "MD-001", 4)
         self.product.mark |should| equal_to ("Arno")
         self.product.model |should| equal_to ("MD-001")
-        self.product.serial_number |should| equal_to ("SN-3122")
-        self.product.all_products[0].serial_number |should| equal_to ("SN-3122")
-        #self.stock = Stock(1)
+        self.product.quantity |should| equal_to (4)
+        #self.product.serial_number |should| equal_to ("SN-3122")
+        #self.product.all_products[0].serial_number |should| equal_to ("SN-3122")
 
 class TestCustomer(unittest.TestCase):
 
@@ -26,24 +25,6 @@ class TestCustomer(unittest.TestCase):
         self.customer.name |should| equal_to ("Paula")
         self.customer.address |should| equal_to ("Casa Da Paula")
         len(self.customer.all_customers) |should| equal_to (1)
-
-class TestStock(unittest.TestCase):
-    def test_make_a_stock(self):
-        self.stock = Stock(1, 1, 10) #id, product, quantity_product
-        self.stock.id |should| equal_to (1)
-        self.stock.product |should| equal_to (1)
-        self.stock.quantity |should| equal_to (10)
-        #self.stock.add_product_in_stock(1)
-
-    def test_verify_a_product_in_stock(self):
-        self.stock = Stock(1, 1, 10)
-        self.stock.id |should| equal_to (1)
-        self.stock.product |should| equal_to (1)
-        self.stock.quantity |should| equal_to (10)
-        #self.stock.is_my_product_in_the_stock() |should| equal_to(True)
-        #self.purchase.is_my_purchase_in_the_warranty() |should| equal_to(True)
-        #self.stock.make_an_product(self.stock) |should| equal_to(True)
-
 
 class TestPurchase(unittest.TestCase):
     def test_make_a_purchase(self):                                                 #faz uma venda
