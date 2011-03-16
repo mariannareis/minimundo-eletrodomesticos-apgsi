@@ -3,11 +3,10 @@ import unittest
 import specloud
 from datetime import date
 
-from appliances_store import Storage, Customer, Purchase, Exchange#, Product#, Stock
+from appliances_store import Storage, Customer, Purchase, Exchange
 
-class TestProduct(unittest.TestCase):
+class TestStorage(unittest.TestCase):
 
-    product = 0
     def test_add_products(self):                                                 #adiciona um produto
         self.storage = Storage()
         self.storage.add_products("Arno", "MD-001", 3)
@@ -15,6 +14,8 @@ class TestProduct(unittest.TestCase):
         self.storage.model |should| equal_to ("MD-001")
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
         len(self.storage.products_serials) |should| equal_to (3)
+        self.storage.all_kinds_of_products[0].products_serials |should| equal_to (['SD-2233', 'SD-4444', 'SD-5566'])
+        self.storage.all_kinds_of_products[0].mark |should| equal_to ('Arno')
 
 class TestCustomer(unittest.TestCase):
 

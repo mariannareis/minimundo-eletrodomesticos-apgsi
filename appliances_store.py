@@ -25,8 +25,10 @@ class Storage():
         for product in (0, quantity):
             self.set_products_serials(self)
 
+        self.storage_products(self)
+
     def set_products_serials(self, serial_numbers):
-         self.products_serials.append(serial_numbers)
+         self.products_serials = serial_numbers
 
     @staticmethod
     def storage_products(self):
