@@ -16,20 +16,25 @@ class TestCustomer(unittest.TestCase):
 
 class TestStorage(unittest.TestCase):
     def test_add_products(self):                                                 #adiciona um produto
-        self.storage = Storage()
-        self.storage.add_products("Arno", "MD-001", 3)
+        self.storage = Storage("Arno", "MD-001", 3)
         self.storage.mark |should| equal_to ("Arno")
         self.storage.model |should| equal_to ("MD-001")
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
         len(self.storage.products_serials) |should| equal_to (3)
         self.storage.products_by_type[0].mark |should| equal_to ('Arno')
 
+        self.storage = Storage("Walita", "MD-003", 3)
+        self.storage.mark |should| equal_to ("Walita")
+        self.storage.model |should| equal_to ("MD-003")
+        self.storage.set_products_serials(["SD-22334", "SD-44445", "SD-55667"])
+        len(self.storage.products_serials) |should| equal_to (3)
+        self.storage.products_by_type[1].mark |should| equal_to ('Walita')
+
 class TestPurchase(unittest.TestCase):
     def test_make_a_purchase(self):
 
         #### SETUP ####
-        self.storage = Storage()
-        self.storage.add_products("Arno", "MD-001", 3)
+        self.storage = Storage("Arno", "MD-001", 3)
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
         #### SETUP ####
 
@@ -52,8 +57,7 @@ class TestPurchase(unittest.TestCase):
 
     def test_make_an_exchange(self):
         #### SETUP ####
-        self.storage = Storage()
-        self.storage.add_products("Arno", "MD-001", 3)
+        self.storage = Storage("Arno", "MD-001", 3)
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
         self.purchase = Purchase(1, 1, "17/01/2011") #id, customer, date_of_purchase
         #### SETUP ####
@@ -62,16 +66,17 @@ class TestPurchase(unittest.TestCase):
         self.exchange.problem |should| equal_to ("Produto nao liga")
 
     def test_check_disponibility_of_equipments(self):
-        self.storage = Storage()
-        self.storage.add_products("Arno", "MD-001", 3)
+        self.storage = Storage("Arno", "MD-001", 3)
         self.storage.set_products_serials(["SD-2233", "SD-4444", "SD-5566"])
 
-        Storage.check_disponibility_of_equipments(self) |should| equal_to ("ArnoMD-0013")
+        self.storage = Storage("Walita", "MD-005", 2)
+        self.storage.set_products_serials(["SD-2266", "SD-4488"])
 
-    def test_equipments_with_problems(self):
+        Storage.check_disponibility_of_equipments(self) |should| equal_to ("ArnoMD-0013WalitaMD-0052")
+
+    def test_check_equipments_with_problems(self):
         #### SETUP ####
-        self.storage = Storage()
-        self.storage.add_products("Walita", "MD-002", 3)
+        self.storage = Storage("Walita", "MD-002", 3)
         self.storage.set_products_serials(["SD-2244", "SD-5544", "SD-6666"])
         #### SETUP ####
 
@@ -80,15 +85,13 @@ class TestPurchase(unittest.TestCase):
 
         Exchange.verify_problems_with_equipments(self) |should| equal_to ("1Produto nao liga2011-03-181")
 
-    def test_equipments_with_problems(self):
+    def test_check_equipments_with_problems(self):
         #### SETUP ####
-        self.storage = Storage()
-        self.storage.add_products("Walita", "MD-002", 3)
+        self.storage = Storage("Walita", "MD-002", 3)
         self.storage.set_products_serials(["SD-2244", "SD-5544", "SD-6666"])
+        self.exchange = Exchange(1, 1, "SN-2233", "Produto nao liga") #id, customer, product_exchanged, problem_of_product
+        self.exchange = Exchange(1, 1, "SN-2234", "Colocaram cafe no lugar da agua") #id, customer, product_exchanged, problem_of_product
         #### SETUP ####
 
-        self.exchange = Exchange(1, 1, "SN-2233", "Produto nao liga") #id, customer, product_exchanged, problem_of_product
-        self.exchange.problem |should| equal_to ("Produto nao liga")
-
-        Exchange.verify_problems_with_equipments(self) |should| equal_to ("1Produto nao liga2011-03-181")
+        Exchange.verify_problems_with_equipments(self) |should| equal_to ("1Produto nao liga2011-03-1811Colocaram cafe no lugar da agua2011-03-181")
 

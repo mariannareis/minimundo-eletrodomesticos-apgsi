@@ -8,10 +8,10 @@ class Customer():
         self.id = id
         self.name = name
         self.address = address
-        self.storageCustomers(self)
+        self.storage_customers(self)
 
     @staticmethod
-    def storageCustomers(self):
+    def storage_customers(self):
         self.all_customers.append(self)
 
 class Storage():
@@ -19,7 +19,7 @@ class Storage():
     products_by_type = []         #type are the same mark and model!!!
     products_serials = []
 
-    def add_products(self, mark, model, quantity):
+    def __init__(self, mark, model, quantity):
         self.mark = mark
         self.model = model
         for product in (0, quantity):
@@ -36,15 +36,10 @@ class Storage():
 
     @staticmethod
     def check_disponibility_of_equipments(self):
-
-      #  if (len(Storage.products_by_type)) == 1:
-      #      products_size = 1
-      #  else:
-      #      products_size = len(Storage.products_by_type) - 1
-
-#          for y in range(0, products_size):
-       return  Storage.products_by_type[0].mark + Storage.products_by_type[0].model + str(len(Storage.products_by_type[0].products_serials))
-
+        result = ""
+        for x in range(0, len(Storage.products_by_type)):
+            result = result + Storage.products_by_type[x].mark + Storage.products_by_type[x].model + str(len(Storage.products_by_type[x].products_serials))
+        return result
 
 class Purchase():
 
@@ -98,12 +93,13 @@ class Exchange():
 
     def make_an_exchange(self, purchase):
         if purchase.is_my_purchase_in_the_warranty():
-            self.storage = Storage()
-            self.storage.add_products("Arno", "MD-001", )
+            pass    #troca nao foi implementada!!!!!!!!!!!
 
     @staticmethod
     def verify_problems_with_equipments(self):
-       return  str(Exchange.exchanges[0].customer) + str(Exchange.exchanges[0].problem)  + str(Exchange.exchanges[0].date) + str(Exchange.exchanges[0].serial)
 
-#    @def verify_clients_
+        result = ""
+        for x in range(0, len(Exchange.exchanges)):
+            result = result + str(Exchange.exchanges[x].customer) + str(Exchange.exchanges[x].problem)  + str(Exchange.exchanges[x].date) + str(Exchange.exchanges[x].serial)
+        return result
 
