@@ -1,3 +1,7 @@
+import sys, os
+# Set the DJANGO_SETTINGS_MODULE environment variable.
+os.environ['DJANGO_SETTINGS_MODULE'] = "mewe.settings"
+
 from django.db import models
 
 class Customer(models.Model):
