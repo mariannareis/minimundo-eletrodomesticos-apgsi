@@ -1,15 +1,10 @@
-import sys, os
-sys.path.append("/home/mari/eispatterns")
-
-#Para resources => subclasses.
+#todas as classes estao aqui. Isso nao e necessario e nem muito 'bonito', vai ficar assim apenas inicialmente.
+#Para resources => subclasses. (tal como marca e modelo, para produto...)
 #Para nodes => decorators.
 #Para movements => configuracao.
 
-#-> Se o decorator funciona como um wrapper.... Quem 'enveloparia' quem ai?
-#Um decorator Cliente envelopa um objeto Person.
-#Se o cliente for uma empresa, ele envelopa uma Machine.
-#Significa que suas association rules devem ser do tipo decorated |should| be_instance_of(Node)
-#Afinal Node inclui Person e Machine.
+import sys, os
+sys.path.append("/home/mari/eispatterns")
 
 # Set the DJANGO_SETTINGS_MODULE environment variable.
 os.environ['DJANGO_SETTINGS_MODULE'] = "mewe.settings"
@@ -22,7 +17,9 @@ from domain.node.person import Person
 from domain.supportive.rule import rule
 from domain.supportive.association_error import AssociationError
 
-#Decorator de Person
+#Um decorator Cliente envelopa um objeto Person.
+#Se o cliente for uma empresa, ele envelopa uma Machine.
+#Significa que suas association rules devem ser do tipo decorated |should| be_instance_of(Node) (que inclui Person e Machine)
 class CustomerDecorator(models.Model, Decorator): #decoracao concreta.... tem uma estancia de Person, que sera decorado'
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
@@ -46,19 +43,21 @@ class CustomerDecorator(models.Model, Decorator): #decoracao concreta.... tem um
         ''' Decorated object should be a Person '''
         decorated |should| be_instance_of(Person)
 
-#Subclasse de product (resource)
 class Brand(models.Model):
     name = models.CharField(max_length=100)
 
-#Subclasse de product (resource)
 class ProductModel(models.Model):
     brand = models.ForeignKey(Brand)
     name = models.CharField(max_length=100)
 
 #Produto = Resource (WorkItem)
-class Product(models.Model):
+class Product(models.Model, WorkItem):
     product_model = models.ForeignKey(ProductModel)
     serial_number = models.CharField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        super(Product, self).save(*args, **kwargs)
+        WorkItem.__init__(self)
 
 #- Estoque(Decorator de No, com 'ponteiros' para as instancias de Produto)
 #Note que movimentacoes de estoque sao representadas por um ou mais movements.

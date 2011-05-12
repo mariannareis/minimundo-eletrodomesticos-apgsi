@@ -21,6 +21,7 @@ class customerSpec(unittest.TestCase):
         self.customer_decorator.decorate(self.a_person)
         self.customer_decorator.decorated |should| be(self.a_person)
         self.customer_decorator.decorated |should| have(1).decorators
+        self.customer_decorator.state |should| equal_to(None)
         #should fail
         non_person = 'I am not a person'
         (self.customer_decorator.decorate, non_person) |should| throw(AssociationError)

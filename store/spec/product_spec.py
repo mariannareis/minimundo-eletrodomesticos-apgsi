@@ -16,4 +16,5 @@ class productTestCase(unittest.TestCase):
         self.product.product_model.name |should| equal_to('um exemplo')
         self.product.serial_number |should| equal_to("019823")
         self.product.product_model.brand.name |should| equal_to('Dell')
+        self.product.unit |should| equal_to('unit')
 
