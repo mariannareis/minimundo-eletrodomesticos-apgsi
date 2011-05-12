@@ -1,25 +1,9 @@
 import sys, os
 sys.path.append("/home/mari/eispatterns")
 
-#- Produto(fk_modelo, fk_compra, fk_troca, serial, em_estoque) ---> se houve compra ou troca, em_estoque 'false'
-#Produto = Resource (WorkItem??)
-
-#- Estoque(Decorator de No, com 'ponteiros' para as instancias de Produto)
-#Note que movimentacoes de estoque sao representadas por um ou mais movements.
-#Saida de item do estoque para o cliente => movement entre os nos Estoque e Cliente.
-
 #Para resources => subclasses.
 #Para nodes => decorators.
 #Para movements => configuracao.
-
-#- Compra(pk_cliente, data)  ---> has_many products
-#Instancia de Process
-
-#- Troca(fk_cliente, data, defeito_apresentado) -> ---> has_one product
-#Instancia de Process
-
-#-> Compra, Troca
-#Sao process, que contem transformations e transportations.
 
 #-> Se o decorator funciona como um wrapper.... Quem 'enveloparia' quem ai?
 #Um decorator Cliente envelopa um objeto Person.
@@ -39,12 +23,11 @@ from domain.supportive.rule import rule
 from domain.supportive.association_error import AssociationError
 
 #Decorator de Person
-class CustomerDecorator(Decorator):
-    def __init__(self, name, address):
-        Decorator.__init__(self)
-        self.name = name #models.CharField(max_length=100)
-        self.address = address #models.CharField(max_length=200)
-        self.description = "A Customer"
+class CustomerDecorator(models.Model, Decorator): #decoracao concreta.... tem uma estancia de Person, que sera decorado'
+#        Decorator.__init__(self)
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    address = models.CharField(max_length=200)
 
     def decorate(self, decorated):
         try:
@@ -69,18 +52,19 @@ class ProductModel(models.Model):
     brand = models.ForeignKey(Brand)
     name = models.CharField(max_length=100)
 
+#Produto = Resource (WorkItem)
+class Product(models.Model):
+    product_model = models.ForeignKey(ProductModel)
+    serial_number = models.CharField(max_length=100)
 
-#class Storage(models.Model, WorkItem):
-#    brand = models.CharField(max_length=100)
-#    model =  models.CharField(max_length=100)
+#- Estoque(Decorator de No, com 'ponteiros' para as instancias de Produto)
+#Note que movimentacoes de estoque sao representadas por um ou mais movements.
+#Saida de item do estoque para o cliente => movement entre os nos Estoque e Cliente.
+#class Stock(fk_product, in_stock)
 
-#    def __init__(self):
-#        WorkItem.__init__(self)
+#class Sale(fk_product, fk_cliente, data) ---> has_many products, belongs_to product / has_many clientes, belongs_to clientes
+#Instancia de Process
 
-#class Product(models.Model, WorkItem):
-#    storage = models.ForeignKey(Storage)
-#    serial_number = models.CharField(max_length=100)
-
-#    def __init__(self):
-#        WorkItem.__init__(self)
+#class Exchange(fk_product, fk_cliente, data, defeito_apresentado) ---> has_one product, belongs_to product
+#Instancia de Process
 
