@@ -24,10 +24,13 @@ from domain.supportive.association_error import AssociationError
 
 #Decorator de Person
 class CustomerDecorator(models.Model, Decorator): #decoracao concreta.... tem uma estancia de Person, que sera decorado'
-#        Decorator.__init__(self)
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
+
+    def save(self, *args, **kwargs):
+        super(CustomerDecorator, self).save(*args, **kwargs)
+        Decorator.__init__(self)
 
     def decorate(self, decorated):
         try:
